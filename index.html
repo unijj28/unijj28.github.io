@@ -7,158 +7,299 @@
 <style>
   :root {
     --bg: #0f0f0f;
-    --bg2: #1a1a2a;
-    --card: #1e1e30;
-    --card-hover: #282845;
+    --bg2: #1a1a1a;
+    --card: #1e1e2e;
+    --card-hover: #282840;
     --text: #e8e8e8;
-    --text2: #aaa;
+    --text2: #999;
+    --text3: #555;
     --accent: #e8a849;
-    --accent2: #ff6b6b;
-    --border: #2a2a40;
+    --accent2: #c07828;
+    --border: #2a2a3a;
+    --green: #4ecf8e;
+    --red: #e85050;
+    --blue: #5ba0d0;
+    --yellow: #ffa502;
   }
   [data-theme="light"] {
     --bg: #f4f2ed;
     --bg2: #fff;
     --card: #fff;
-    --card-hover: #faf8f2;
+    --card-hover: #f8f6f0;
     --text: #1a1a1a;
     --text2: #666;
+    --text3: #aaa;
     --accent: #c07828;
-    --accent2: #d04040;
+    --accent2: #a06018;
     --border: #e0dcd2;
+    --green: #2a9d5c;
+    --red: #c03030;
+    --blue: #3080b0;
+    --yellow: #b07010;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
 
-  .theme-btn {
-    position: fixed; top: 20px; right: 20px;
-    width: 42px; height: 42px; border-radius: 50%;
-    border: 1px solid var(--border); background: var(--card);
-    color: var(--text2); font-size: 20px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .2s; z-index: 10;
-  }
-  .theme-btn:hover { border-color: var(--accent); transform: scale(1.1); }
+  /* NAV */
+  nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 20px;position:sticky;top:0;z-index:200}
+  .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .nav-title{font-size:20px;font-weight:700;color:var(--accent);white-space:nowrap}
+  .nav-right{display:flex;align-items:center;gap:6px}
+  .tab-btn{padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
+  .tab-btn:hover{border-color:var(--accent);color:var(--text)}
+  .tab-btn.active{background:var(--accent);color:#111;border-color:var(--accent);font-weight:600}
+  .theme-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:6px}
+  .theme-btn:hover{border-color:var(--accent);color:var(--text)}
 
-  .hero { text-align: center; margin-bottom: 50px; }
-  .hero h1 {
-    font-size: 2.4em; font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 12px;
-  }
-  .hero p { color: var(--text2); font-size: 1.05em; }
+  /* MAIN */
+  .main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
+  .panel{display:none}
+  .panel.active{display:block}
 
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    max-width: 700px;
-    width: 100%;
-  }
+  /* DATE NAV */
+  .date-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+  .date-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;transition:all .15s}
+  .date-btn:hover{border-color:var(--accent);color:var(--text)}
+  .date-btn.active{background:var(--accent);color:#111;border-color:var(--accent);font-weight:600}
 
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px 30px;
-    text-decoration: none;
-    color: var(--text);
-    transition: all .25s;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    position: relative;
-    overflow: hidden;
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity .25s;
-  }
-  .card:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,.3);
-  }
-  [data-theme="light"] .card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.08); }
-  .card:hover::before { opacity: 1; }
+  /* SECTION CARDS */
+  .sec{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:14px;transition:border-color .15s}
+  .sec:hover{border-color:var(--accent)}
+  .sec-head{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;margin-bottom:14px}
+  .sec-icon{font-size:20px}
 
-  .card-icon { font-size: 2.8em; }
-  .card-title { font-size: 1.35em; font-weight: 700; }
-  .card-desc { color: var(--text2); font-size: 0.92em; line-height: 1.6; }
-  .card-arrow {
-    color: var(--accent); font-size: 0.9em; font-weight: 600;
-    margin-top: auto; padding-top: 8px;
-    opacity: 0; transition: opacity .2s;
-  }
-  .card:hover .card-arrow { opacity: 1; }
+  /* NEWS */
+  .nlist{list-style:none}
+  .nlist li{padding:9px 0 9px 16px;border-bottom:1px solid rgba(128,128,128,.08);position:relative;font-size:14px}
+  .nlist li:last-child{border-bottom:none}
+  .nlist li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
-  .footer {
-    margin-top: 60px;
-    color: var(--text2);
-    font-size: 0.8em;
-    opacity: 0.6;
-  }
+  /* AI */
+  .ai-item{padding:10px 0;border-bottom:1px solid rgba(128,128,128,.08)}
+  .ai-item:last-child{border-bottom:none}
+  .ai-t{font-weight:600;font-size:14px}
+  .ai-c{color:var(--text2);font-size:13px;padding-left:12px;border-left:2px solid var(--accent);margin-top:4px}
 
-  @media (max-width: 500px) {
-    .hero h1 { font-size: 1.8em; }
-    .cards { grid-template-columns: 1fr; }
-    .card { padding: 28px 24px; }
-  }
+  /* WEATHER */
+  .wgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .wmain{grid-column:1/-1;font-size:15px}
+  .wstat{background:rgba(128,128,128,.06);padding:12px;border-radius:8px;text-align:center}
+  .wstat .wl{color:var(--text2);font-size:12px;margin-bottom:2px}
+  .wstat .wv{font-size:1.2em;font-weight:600}
+  .wtip{grid-column:1/-1;background:rgba(232,168,73,.1);padding:10px 14px;border-radius:8px;font-size:13px;color:var(--yellow)}
+
+  /* MARKETS */
+  .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+  .mitem{background:rgba(128,128,128,.06);padding:12px;border-radius:8px;text-align:center}
+  .mname{color:var(--text2);font-size:12px;margin-bottom:4px}
+  .mval{font-size:14px;font-weight:600}
+  .mchg{font-size:13px;font-weight:600;margin-top:2px}
+  .mchg.up{color:var(--green)}.mchg.down{color:var(--red)}
+
+  /* DEDAO CARDS */
+  .ct{background:linear-gradient(135deg,rgba(232,168,73,.08),rgba(128,128,200,.06));border:1px solid var(--accent2);border-radius:12px;padding:18px 22px;margin-bottom:20px;font-size:14px;line-height:1.8}
+  .ct-label{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:2px;margin-bottom:6px}
+  .dc{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;transition:border-color .15s}
+  .dc:hover{border-color:var(--accent)}
+  .dc-head{padding:18px 22px;cursor:pointer;display:flex;gap:14px;align-items:flex-start;user-select:none}
+  .dc-head:hover{background:var(--card-hover)}
+  .dc-num{background:var(--accent);color:#111;font-size:12px;font-weight:700;min-width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0;margin-top:2px}
+  .dc-meta{flex:1;min-width:0}
+  .dc-course{font-size:12px;color:var(--accent);margin-bottom:3px}
+  .dc-title{font-size:16px;font-weight:600;line-height:1.5}
+  .dc-sum{font-size:13px;color:var(--text2);margin-top:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .dc-tog{color:var(--text3);font-size:18px;flex-shrink:0;margin-top:4px;transition:transform .2s}
+  .dc.open .dc-tog{transform:rotate(180deg)}
+  .dc.open .dc-sum{display:none}
+  .dc-det{display:none;padding:0 22px 22px;border-top:1px solid var(--border)}
+  .dc.open .dc-det{display:block}
+  .ds{margin-top:18px}
+  .ds-t{font-size:13px;font-weight:600;color:var(--accent);letter-spacing:1px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+  .ds p{font-size:14px;line-height:1.8}
+  .ds ul{list-style:none}
+  .ds ul li{position:relative;padding-left:16px;margin-bottom:6px;font-size:14px}
+  .ds ul li::before{content:"›";position:absolute;left:0;color:var(--accent);font-weight:700}
+  .ag{display:grid;grid-template-columns:1fr;gap:10px}
+  .ai2{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px 14px}
+  .al{font-size:12px;font-weight:600;margin-bottom:4px}
+  .al.g{color:var(--green)}.al.r{color:var(--red)}.al.b{color:var(--blue)}
+  .ai2 p{font-size:13px;color:var(--text2);line-height:1.7}
+  .cbox{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:10px}
+
+  .status{text-align:center;padding:50px 20px;color:var(--text3);font-size:14px}
+  .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .footer{text-align:center;padding:30px 0;color:var(--text3);font-size:12px;opacity:.5}
+
+  @media(min-width:640px){.ag{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:500px){.nav-title{font-size:17px}.tab-btn{padding:5px 12px;font-size:12px}.sec,.dc-head,.dc-det{padding-left:16px;padding-right:16px}}
 </style>
 </head>
 <body>
 
-<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+<nav>
+  <div class="nav-inner">
+    <div class="nav-title">📡 每日推送</div>
+    <div class="nav-right">
+      <button class="tab-btn active" id="tabBrief" onclick="switchTab('brief')">📰 每日简报</button>
+      <button class="tab-btn" id="tabDedao" onclick="switchTab('dedao')">📚 得到日报</button>
+      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
+    </div>
+  </div>
+</nav>
 
-<div class="hero">
-  <h1>📡 每日推送</h1>
-  <p>新闻简报 · 得到文章深度分析 · 每日更新</p>
-</div>
-
-<div class="cards">
-  <a class="card" href="https://unijj28.github.io/daily-push/">
-    <div class="card-icon">📰</div>
-    <div class="card-title">每日简报</div>
-    <div class="card-desc">澳洲 · 国际 · 中国新闻<br>AI 技术动态 · 墨尔本天气 · 市场数据</div>
-    <div class="card-arrow">查看简报 →</div>
-  </a>
-  <a class="card" href="https://unijj28.github.io/dedao-daily/">
-    <div class="card-icon">📚</div>
-    <div class="card-title">得到日报</div>
-    <div class="card-desc">刘怡·国际参考 · 马江博·政经参考 · 得到头条<br>深度分析 · 批判性解读 · 启发联想</div>
-    <div class="card-arrow">查看分析 →</div>
-  </a>
+<div class="main">
+  <div class="panel active" id="panel-brief">
+    <div class="date-row" id="briefDates"></div>
+    <div id="briefContent"><div class="status"><div class="spinner"></div>加载中...</div></div>
+  </div>
+  <div class="panel" id="panel-dedao">
+    <div class="date-row" id="dedaoDates"></div>
+    <div id="dedaoContent"><div class="status"><div class="spinner"></div>加载中...</div></div>
+  </div>
 </div>
 
 <div class="footer">Powered by OpenClaw</div>
 
 <script>
-const btn = document.getElementById('themeBtn');
-function setTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  btn.textContent = t === 'light' ? '🌙' : '☀️';
-  localStorage.setItem('push-theme', t);
+const BRIEF = 'https://unijj28.github.io/daily-push/';
+const DEDAO = 'https://unijj28.github.io/dedao-daily/';
+
+// ===== THEME =====
+const themeBtn = document.getElementById('themeBtn');
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);themeBtn.textContent=t==='light'?'🌙':'☀️';localStorage.setItem('push-theme',t)}
+function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light')}
+const st=localStorage.getItem('push-theme');if(st)setTheme(st);
+
+// ===== TABS =====
+function switchTab(t){
+  document.getElementById('tabBrief').classList.toggle('active',t==='brief');
+  document.getElementById('tabDedao').classList.toggle('active',t==='dedao');
+  document.getElementById('panel-brief').classList.toggle('active',t==='brief');
+  document.getElementById('panel-dedao').classList.toggle('active',t==='dedao');
 }
-function toggleTheme() {
-  setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+
+function esc(s){const e=document.createElement('span');e.textContent=s;return e.innerHTML}
+
+// ===== BRIEFING =====
+let bDates=[],bCache={},bIdx=0;
+
+async function initBrief(){
+  try{
+    // Try posts/index.json
+    let dates=[];
+    try{const r=await fetch(BRIEF+'posts/index.json');if(r.ok)dates=await r.json()}catch(_){}
+    if(!dates.length){
+      // Fallback: data.json
+      try{const r=await fetch(BRIEF+'data.json');if(r.ok){const arr=await r.json();arr.forEach(d=>{bCache[d.date]=d});dates=arr.map(d=>d.date)}}catch(_){}
+    }
+    bDates=dates.sort().reverse();
+    renderBDates();
+    if(bDates.length)selectBrief(0);
+    else document.getElementById('briefContent').innerHTML='<div class="status">暂无数据</div>';
+  }catch(e){document.getElementById('briefContent').innerHTML='<div class="status">加载失败</div>'}
 }
-const s = localStorage.getItem('push-theme');
-if (s) setTheme(s);
+
+function renderBDates(){
+  document.getElementById('briefDates').innerHTML=bDates.map((d,i)=>{
+    const c=bCache[d];const label=c?`${d.slice(5)} ${c.weekday||''}`:d.slice(5);
+    return `<button class="date-btn ${i===bIdx?'active':''}" onclick="selectBrief(${i})">${label}</button>`;
+  }).join('');
+}
+
+async function selectBrief(i){
+  bIdx=i;renderBDates();
+  const date=bDates[i];
+  document.getElementById('briefContent').innerHTML='<div class="status"><div class="spinner"></div>加载中...</div>';
+  let day=bCache[date];
+  if(!day){
+    try{const r=await fetch(BRIEF+'posts/'+date+'.json');if(r.ok){day=await r.json();bCache[date]=day}}catch(_){}
+  }
+  if(!day){document.getElementById('briefContent').innerHTML='<div class="status">加载失败</div>';return}
+  renderBrief(day);
+}
+
+function renderBrief(day){
+  const b=day.briefing;let h='';
+  const MN={asx200:'ASX 200',sp500:'S&P 500',dow:'道琼斯',hsi:'恒生',sse:'上证',gold:'黄金',aud:'澳元',iron:'铁矿石',oil:'原油'};
+  if(b?.australia?.length)h+=bSec('🇦🇺','澳洲要闻',`<ul class="nlist">${b.australia.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  if(b?.world?.length)h+=bSec('🌏','国际头条',`<ul class="nlist">${b.world.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  if(b?.china?.length)h+=bSec('🇨🇳','中国新闻',`<ul class="nlist">${b.china.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
+  if(b?.ai?.length)h+=bSec('🤖','AI 技术动态',b.ai.map(x=>typeof x==='string'?`<div class="ai-item"><div class="ai-t">${esc(x)}</div></div>`:`<div class="ai-item"><div class="ai-t">${esc(x.title)}</div><div class="ai-c">${esc(x.comment)}</div></div>`).join(''));
+  if(b?.weather){const w=b.weather;h+=bSec('🌤','墨尔本天气',`<div class="wgrid"><div class="wmain">☁️ ${esc(w.condition)}</div><div class="wstat"><div class="wl">最低</div><div class="wv">${w.tempLow}°C</div></div><div class="wstat"><div class="wl">最高</div><div class="wv">${w.tempHigh}°C</div></div><div class="wstat"><div class="wl">湿度</div><div class="wv">${w.humidity}%</div></div><div class="wstat"><div class="wl">风</div><div class="wv" style="font-size:.85em">${esc(w.wind)}</div></div>${w.tip?`<div class="wtip">☂️ ${esc(w.tip)}</div>`:''}</div>`)}
+  if(b?.markets){h+=bSec('📈','市场动态',`<div class="mgrid">${Object.entries(b.markets).map(([k,v])=>{const ch=v.change||'';const cls=ch.startsWith('+')?'up':ch.startsWith('-')?'down':'';return`<div class="mitem"><div class="mname">${MN[k]||k}</div><div class="mval">${esc(v.value)}</div><div class="mchg ${cls}">${esc(ch)}</div></div>`}).join('')}</div>`)}
+  document.getElementById('briefContent').innerHTML=h;
+}
+function bSec(icon,title,body){return`<div class="sec"><div class="sec-head"><span class="sec-icon">${icon}</span>${title}</div>${body}</div>`}
+
+// ===== DEDAO =====
+let dDates=[],dCache={},dIdx=0;
+
+async function initDedao(){
+  try{
+    let dates=[];
+    try{const r=await fetch(DEDAO+'posts/index.json');if(r.ok)dates=await r.json()}catch(_){}
+    if(!dates.length){
+      // Probe 30 days
+      const today=new Date();const ps=[];
+      for(let i=0;i<30;i++){const d=new Date(today);d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);ps.push(fetch(DEDAO+'posts/'+ds+'.json',{method:'HEAD'}).then(r=>r.ok?ds:null).catch(()=>null))}
+      dates=(await Promise.all(ps)).filter(Boolean);
+    }
+    dDates=dates.sort().reverse();
+    renderDDates();
+    if(dDates.length)selectDedao(0);
+    else document.getElementById('dedaoContent').innerHTML='<div class="status">暂无数据</div>';
+  }catch(e){document.getElementById('dedaoContent').innerHTML='<div class="status">加载失败</div>'}
+}
+
+function renderDDates(){
+  document.getElementById('dedaoDates').innerHTML=dDates.map((d,i)=>
+    `<button class="date-btn ${i===dIdx?'active':''}" onclick="selectDedao(${i})">${d.slice(5)}</button>`
+  ).join('');
+}
+
+async function selectDedao(i){
+  dIdx=i;renderDDates();
+  const date=dDates[i];
+  document.getElementById('dedaoContent').innerHTML='<div class="status"><div class="spinner"></div>加载中...</div>';
+  let data=dCache[date];
+  if(!data){try{const r=await fetch(DEDAO+'posts/'+date+'.json');if(r.ok){data=await r.json();dCache[date]=data}}catch(_){}}
+  if(!data){document.getElementById('dedaoContent').innerHTML='<div class="status">加载失败</div>';return}
+  renderDedao(data);
+}
+
+function renderDedao(data){
+  let h='';
+  if(data.common_thread)h+=`<div class="ct"><div class="ct-label">今日共同线索</div><div>${esc(data.common_thread)}</div></div>`;
+  (data.articles||[]).forEach((a,i)=>{
+    h+=`<div class="dc"><div class="dc-head" onclick="this.parentElement.classList.toggle('open')"><div class="dc-num">${esc(String(a.number||(i+1)))}</div><div class="dc-meta"><div class="dc-course">${esc(a.course)}</div><div class="dc-title">${esc(a.title)}</div><div class="dc-sum">${esc(a.summary)}</div></div><div class="dc-tog">▾</div></div><div class="dc-det">${dDetail(a)}</div></div>`;
+  });
+  document.getElementById('dedaoContent').innerHTML=h;
+}
+
+function dDetail(a){
+  let h=`<div class="ds"><div class="ds-t">核心摘要</div><p>${esc(a.summary)}</p></div>`;
+  if(a.views?.length)h+=`<div class="ds"><div class="ds-t">核心观点</div><ul>${a.views.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></div>`;
+  if(a.analysis){
+    h+=`<div class="ds"><div class="ds-t">批判性分析</div><div class="ag">`;
+    if(a.analysis.strengths)h+=`<div class="ai2"><div class="al g">论据扎实</div><p>${esc(a.analysis.strengths)}</p></div>`;
+    if(a.analysis.weaknesses)h+=`<div class="ai2"><div class="al r">逻辑漏洞</div><p>${esc(a.analysis.weaknesses)}</p></div>`;
+    if(a.analysis.bias)h+=`<div class="ai2"><div class="al b">立场倾向</div><p>${esc(a.analysis.bias)}</p></div>`;
+    h+=`</div></div>`;
+  }
+  if(a.inspiration){
+    h+=`<div class="ds"><div class="ds-t">启发与联想</div>`;
+    if(a.inspiration.crossover)h+=`<div class="cbox">${esc(a.inspiration.crossover)}</div>`;
+    if(a.inspiration.questions?.length)h+=`<ul>${a.inspiration.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`;
+    h+=`</div>`;
+  }
+  return h;
+}
+
+// ===== INIT =====
+initBrief();
+initDedao();
 </script>
 </body>
 </html>
