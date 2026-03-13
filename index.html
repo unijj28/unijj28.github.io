@@ -20,6 +20,7 @@
     --red: #e85050;
     --blue: #5ba0d0;
     --yellow: #ffa502;
+    --purple: #a78bfa;
   }
   [data-theme="light"] {
     --bg: #f4f2ed;
@@ -36,59 +37,48 @@
     --red: #c03030;
     --blue: #3080b0;
     --yellow: #b07010;
+    --purple: #7c5cbf;
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
 
-  /* NAV */
   nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 20px;position:sticky;top:0;z-index:200}
-  .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .nav-title{font-size:20px;font-weight:700;color:var(--accent);white-space:nowrap}
-  .nav-right{display:flex;align-items:center;gap:6px}
-  .tab-btn{padding:6px 18px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
+  .nav-right{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .tab-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;transition:all .15s;white-space:nowrap}
   .tab-btn:hover{border-color:var(--accent);color:var(--text)}
   .tab-btn.active{background:var(--accent);color:#111;border-color:var(--accent);font-weight:600}
-  .theme-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:6px}
+  .theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-left:4px}
   .theme-btn:hover{border-color:var(--accent);color:var(--text)}
 
-  /* MAIN */
   .main{max-width:960px;margin:0 auto;padding:20px 16px 60px}
-  .panel{display:none}
-  .panel.active{display:block}
+  .panel{display:none}.panel.active{display:block}
 
-  /* DATE NAV */
   .date-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
   .date-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;transition:all .15s}
   .date-btn:hover{border-color:var(--accent);color:var(--text)}
   .date-btn.active{background:var(--accent);color:#111;border-color:var(--accent);font-weight:600}
 
-  /* SECTION CARDS */
+  /* Section cards */
   .sec{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:14px;transition:border-color .15s}
   .sec:hover{border-color:var(--accent)}
   .sec-head{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;margin-bottom:14px}
   .sec-icon{font-size:20px}
-
-  /* NEWS */
   .nlist{list-style:none}
   .nlist li{padding:9px 0 9px 16px;border-bottom:1px solid rgba(128,128,128,.08);position:relative;font-size:14px}
   .nlist li:last-child{border-bottom:none}
   .nlist li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-
-  /* AI */
   .ai-item{padding:10px 0;border-bottom:1px solid rgba(128,128,128,.08)}
   .ai-item:last-child{border-bottom:none}
   .ai-t{font-weight:600;font-size:14px}
   .ai-c{color:var(--text2);font-size:13px;padding-left:12px;border-left:2px solid var(--accent);margin-top:4px}
-
-  /* WEATHER */
   .wgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .wmain{grid-column:1/-1;font-size:15px}
   .wstat{background:rgba(128,128,128,.06);padding:12px;border-radius:8px;text-align:center}
   .wstat .wl{color:var(--text2);font-size:12px;margin-bottom:2px}
   .wstat .wv{font-size:1.2em;font-weight:600}
   .wtip{grid-column:1/-1;background:rgba(232,168,73,.1);padding:10px 14px;border-radius:8px;font-size:13px;color:var(--yellow)}
-
-  /* MARKETS */
   .mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
   .mitem{background:rgba(128,128,128,.06);padding:12px;border-radius:8px;text-align:center}
   .mname{color:var(--text2);font-size:12px;margin-bottom:4px}
@@ -96,7 +86,7 @@
   .mchg{font-size:13px;font-weight:600;margin-top:2px}
   .mchg.up{color:var(--green)}.mchg.down{color:var(--red)}
 
-  /* DEDAO CARDS */
+  /* Dedao */
   .ct{background:linear-gradient(135deg,rgba(232,168,73,.08),rgba(128,128,200,.06));border:1px solid var(--accent2);border-radius:12px;padding:18px 22px;margin-bottom:20px;font-size:14px;line-height:1.8}
   .ct-label{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:2px;margin-bottom:6px}
   .dc{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;transition:border-color .15s}
@@ -126,14 +116,29 @@
   .ai2 p{font-size:13px;color:var(--text2);line-height:1.7}
   .cbox{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:10px}
 
+  /* AI Blog Feed */
+  .blog-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:border-color .15s}
+  .blog-card:hover{border-color:var(--accent)}
+  .blog-card a{text-decoration:none;color:inherit;display:block;padding:18px 22px}
+  .blog-source{font-size:11px;font-weight:600;color:var(--purple);letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase}
+  .blog-title{font-size:15px;font-weight:600;line-height:1.5;margin-bottom:6px}
+  .blog-title:hover{color:var(--accent)}
+  .blog-date{font-size:12px;color:var(--text3)}
+  .blog-category{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;margin-right:6px;margin-bottom:8px}
+  .cat-lab{background:rgba(232,168,73,.15);color:var(--accent)}
+  .cat-eng{background:rgba(78,207,142,.12);color:var(--green)}
+  .cat-newsletter{background:rgba(167,139,250,.12);color:var(--purple)}
+  .cat-product{background:rgba(91,160,208,.12);color:var(--blue)}
+  .cat-news{background:rgba(232,80,80,.12);color:var(--red)}
+  .blog-empty{text-align:center;padding:40px;color:var(--text3);font-size:14px}
+
   .status{text-align:center;padding:50px 20px;color:var(--text3);font-size:14px}
   .spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   .footer{text-align:center;padding:30px 0;color:var(--text3);font-size:12px;opacity:.5}
 
   @media(min-width:640px){.ag{grid-template-columns:repeat(3,1fr)}}
-  @media(max-width:500px){.nav-title{font-size:17px}.tab-btn{padding:5px 12px;font-size:12px}.sec,.dc-head,.dc-det{padding-left:16px;padding-right:16px}}
+  @media(max-width:500px){.nav-title{font-size:17px}.tab-btn{padding:5px 10px;font-size:11px}.sec,.dc-head,.dc-det{padding-left:16px;padding-right:16px}}
 </style>
 </head>
 <body>
@@ -142,8 +147,9 @@
   <div class="nav-inner">
     <div class="nav-title">📡 每日推送</div>
     <div class="nav-right">
-      <button class="tab-btn active" id="tabBrief" onclick="switchTab('brief')">📰 每日简报</button>
-      <button class="tab-btn" id="tabDedao" onclick="switchTab('dedao')">📚 得到日报</button>
+      <button class="tab-btn active" data-tab="brief">📰 每日简报</button>
+      <button class="tab-btn" data-tab="dedao">📚 得到日报</button>
+      <button class="tab-btn" data-tab="ai">🤖 每日AI</button>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
     </div>
   </div>
@@ -158,6 +164,10 @@
     <div class="date-row" id="dedaoDates"></div>
     <div id="dedaoContent"><div class="status"><div class="spinner"></div>加载中...</div></div>
   </div>
+  <div class="panel" id="panel-ai">
+    <div class="date-row" id="aiDates"></div>
+    <div id="aiContent"><div class="status"><div class="spinner"></div>加载中...</div></div>
+  </div>
 </div>
 
 <div class="footer">Powered by OpenClaw</div>
@@ -165,61 +175,54 @@
 <script>
 const BRIEF = 'https://unijj28.github.io/daily-push/';
 const DEDAO = 'https://unijj28.github.io/dedao-daily/';
+const AI_BASE = 'ai-posts/';
 
 // ===== THEME =====
 const themeBtn = document.getElementById('themeBtn');
 function setTheme(t){document.documentElement.setAttribute('data-theme',t);themeBtn.textContent=t==='light'?'🌙':'☀️';localStorage.setItem('push-theme',t)}
 function toggleTheme(){setTheme(document.documentElement.getAttribute('data-theme')==='light'?'dark':'light')}
-const st=localStorage.getItem('push-theme');if(st)setTheme(st);
+const savedT=localStorage.getItem('push-theme');if(savedT)setTheme(savedT);
 
 // ===== TABS =====
-function switchTab(t){
-  document.getElementById('tabBrief').classList.toggle('active',t==='brief');
-  document.getElementById('tabDedao').classList.toggle('active',t==='dedao');
-  document.getElementById('panel-brief').classList.toggle('active',t==='brief');
-  document.getElementById('panel-dedao').classList.toggle('active',t==='dedao');
-}
+document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn[data-tab]').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
 
 function esc(s){const e=document.createElement('span');e.textContent=s;return e.innerHTML}
+function loading(){return '<div class="status"><div class="spinner"></div>加载中...</div>'}
 
 // ===== BRIEFING =====
 let bDates=[],bCache={},bIdx=0;
-
 async function initBrief(){
   try{
-    // Try posts/index.json
     let dates=[];
     try{const r=await fetch(BRIEF+'posts/index.json');if(r.ok)dates=await r.json()}catch(_){}
-    if(!dates.length){
-      // Fallback: data.json
-      try{const r=await fetch(BRIEF+'data.json');if(r.ok){const arr=await r.json();arr.forEach(d=>{bCache[d.date]=d});dates=arr.map(d=>d.date)}}catch(_){}
-    }
+    if(!dates.length){try{const r=await fetch(BRIEF+'data.json');if(r.ok){const arr=await r.json();arr.forEach(d=>{bCache[d.date]=d});dates=arr.map(d=>d.date)}}catch(_){}}
     bDates=dates.sort().reverse();
     renderBDates();
     if(bDates.length)selectBrief(0);
     else document.getElementById('briefContent').innerHTML='<div class="status">暂无数据</div>';
   }catch(e){document.getElementById('briefContent').innerHTML='<div class="status">加载失败</div>'}
 }
-
 function renderBDates(){
   document.getElementById('briefDates').innerHTML=bDates.map((d,i)=>{
     const c=bCache[d];const label=c?`${d.slice(5)} ${c.weekday||''}`:d.slice(5);
     return `<button class="date-btn ${i===bIdx?'active':''}" onclick="selectBrief(${i})">${label}</button>`;
   }).join('');
 }
-
 async function selectBrief(i){
-  bIdx=i;renderBDates();
-  const date=bDates[i];
-  document.getElementById('briefContent').innerHTML='<div class="status"><div class="spinner"></div>加载中...</div>';
+  bIdx=i;renderBDates();const date=bDates[i];
+  document.getElementById('briefContent').innerHTML=loading();
   let day=bCache[date];
-  if(!day){
-    try{const r=await fetch(BRIEF+'posts/'+date+'.json');if(r.ok){day=await r.json();bCache[date]=day}}catch(_){}
-  }
+  if(!day){try{const r=await fetch(BRIEF+'posts/'+date+'.json');if(r.ok){day=await r.json();bCache[date]=day}}catch(_){}}
   if(!day){document.getElementById('briefContent').innerHTML='<div class="status">加载失败</div>';return}
   renderBrief(day);
 }
-
 function renderBrief(day){
   const b=day.briefing;let h='';
   const MN={asx200:'ASX 200',sp500:'S&P 500',dow:'道琼斯',hsi:'恒生',sse:'上证',gold:'黄金',aud:'澳元',iron:'铁矿石',oil:'原油'};
@@ -235,40 +238,25 @@ function bSec(icon,title,body){return`<div class="sec"><div class="sec-head"><sp
 
 // ===== DEDAO =====
 let dDates=[],dCache={},dIdx=0;
-
 async function initDedao(){
   try{
     let dates=[];
     try{const r=await fetch(DEDAO+'posts/index.json');if(r.ok)dates=await r.json()}catch(_){}
-    if(!dates.length){
-      // Probe 30 days
-      const today=new Date();const ps=[];
-      for(let i=0;i<30;i++){const d=new Date(today);d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);ps.push(fetch(DEDAO+'posts/'+ds+'.json',{method:'HEAD'}).then(r=>r.ok?ds:null).catch(()=>null))}
-      dates=(await Promise.all(ps)).filter(Boolean);
-    }
-    dDates=dates.sort().reverse();
-    renderDDates();
+    if(!dates.length){const today=new Date();const ps=[];for(let i=0;i<30;i++){const d=new Date(today);d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);ps.push(fetch(DEDAO+'posts/'+ds+'.json',{method:'HEAD'}).then(r=>r.ok?ds:null).catch(()=>null))}dates=(await Promise.all(ps)).filter(Boolean)}
+    dDates=dates.sort().reverse();renderDDates();
     if(dDates.length)selectDedao(0);
     else document.getElementById('dedaoContent').innerHTML='<div class="status">暂无数据</div>';
   }catch(e){document.getElementById('dedaoContent').innerHTML='<div class="status">加载失败</div>'}
 }
-
-function renderDDates(){
-  document.getElementById('dedaoDates').innerHTML=dDates.map((d,i)=>
-    `<button class="date-btn ${i===dIdx?'active':''}" onclick="selectDedao(${i})">${d.slice(5)}</button>`
-  ).join('');
-}
-
+function renderDDates(){document.getElementById('dedaoDates').innerHTML=dDates.map((d,i)=>`<button class="date-btn ${i===dIdx?'active':''}" onclick="selectDedao(${i})">${d.slice(5)}</button>`).join('')}
 async function selectDedao(i){
-  dIdx=i;renderDDates();
-  const date=dDates[i];
-  document.getElementById('dedaoContent').innerHTML='<div class="status"><div class="spinner"></div>加载中...</div>';
+  dIdx=i;renderDDates();const date=dDates[i];
+  document.getElementById('dedaoContent').innerHTML=loading();
   let data=dCache[date];
   if(!data){try{const r=await fetch(DEDAO+'posts/'+date+'.json');if(r.ok){data=await r.json();dCache[date]=data}}catch(_){}}
   if(!data){document.getElementById('dedaoContent').innerHTML='<div class="status">加载失败</div>';return}
   renderDedao(data);
 }
-
 function renderDedao(data){
   let h='';
   if(data.common_thread)h+=`<div class="ct"><div class="ct-label">今日共同线索</div><div>${esc(data.common_thread)}</div></div>`;
@@ -277,29 +265,84 @@ function renderDedao(data){
   });
   document.getElementById('dedaoContent').innerHTML=h;
 }
-
 function dDetail(a){
   let h=`<div class="ds"><div class="ds-t">核心摘要</div><p>${esc(a.summary)}</p></div>`;
   if(a.views?.length)h+=`<div class="ds"><div class="ds-t">核心观点</div><ul>${a.views.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></div>`;
-  if(a.analysis){
-    h+=`<div class="ds"><div class="ds-t">批判性分析</div><div class="ag">`;
-    if(a.analysis.strengths)h+=`<div class="ai2"><div class="al g">论据扎实</div><p>${esc(a.analysis.strengths)}</p></div>`;
-    if(a.analysis.weaknesses)h+=`<div class="ai2"><div class="al r">逻辑漏洞</div><p>${esc(a.analysis.weaknesses)}</p></div>`;
-    if(a.analysis.bias)h+=`<div class="ai2"><div class="al b">立场倾向</div><p>${esc(a.analysis.bias)}</p></div>`;
-    h+=`</div></div>`;
-  }
-  if(a.inspiration){
-    h+=`<div class="ds"><div class="ds-t">启发与联想</div>`;
-    if(a.inspiration.crossover)h+=`<div class="cbox">${esc(a.inspiration.crossover)}</div>`;
-    if(a.inspiration.questions?.length)h+=`<ul>${a.inspiration.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`;
-    h+=`</div>`;
-  }
+  if(a.analysis){h+=`<div class="ds"><div class="ds-t">批判性分析</div><div class="ag">`;if(a.analysis.strengths)h+=`<div class="ai2"><div class="al g">论据扎实</div><p>${esc(a.analysis.strengths)}</p></div>`;if(a.analysis.weaknesses)h+=`<div class="ai2"><div class="al r">逻辑漏洞</div><p>${esc(a.analysis.weaknesses)}</p></div>`;if(a.analysis.bias)h+=`<div class="ai2"><div class="al b">立场倾向</div><p>${esc(a.analysis.bias)}</p></div>`;h+=`</div></div>`}
+  if(a.inspiration){h+=`<div class="ds"><div class="ds-t">启发与联想</div>`;if(a.inspiration.crossover)h+=`<div class="cbox">${esc(a.inspiration.crossover)}</div>`;if(a.inspiration.questions?.length)h+=`<ul>${a.inspiration.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`;h+=`</div>`}
   return h;
 }
 
+// ===== AI BLOG FEED =====
+let aiDates=[],aiCache={},aiIdx=0;
+const CAT_MAP={
+  'Anthropic Engineering':'lab','Anthropic News':'lab','Anthropic Research':'lab',
+  'OpenAI Blog':'lab','Google DeepMind':'lab','Meta AI':'lab','Hugging Face':'lab',
+  'Mistral AI':'lab','Cohere':'lab','Mozilla.ai':'lab',
+  'LangChain':'eng','Cursor':'eng','LlamaIndex':'eng',
+  'Lilian Weng':'eng','Jay Alammar':'eng','Cameron Wolfe':'newsletter',
+  'Chip Huyen':'eng','Eugene Yan':'eng','Hamel Husain':'eng','Simon Willison':'eng',
+  'Phil Schmid':'eng','Drew Breunig':'eng',
+  'Latent Space':'newsletter','Interconnects':'newsletter','Ahead of AI':'newsletter',
+  'Pragmatic Engineer':'newsletter','Import AI':'newsletter',
+  'Deep Learning Weekly':'newsletter','The Neural Maze':'newsletter',
+  'Davis Summarizes Papers':'newsletter','Gradient Flow':'newsletter',
+  'Towards Data Science':'news','MarkTechPost':'news',
+  'Weaviate':'product'
+};
+const CAT_LABELS={lab:'🏢 Lab官方',eng:'⚙️ 工程博客',newsletter:'📬 Newsletter',product:'📦 产品',news:'📰 新闻'};
+const CAT_CLASS={lab:'cat-lab',eng:'cat-eng',newsletter:'cat-newsletter',product:'cat-product',news:'cat-news'};
+
+async function initAI(){
+  try{
+    const r=await fetch(AI_BASE+'index.json');
+    if(r.ok){
+      aiDates=(await r.json()).sort().reverse();
+      renderAIDates();
+      if(aiDates.length)selectAI(0);
+      else document.getElementById('aiContent').innerHTML='<div class="blog-empty">🤖 暂无 AI 博客更新<br><span style="font-size:12px;color:var(--text3)">每天自动扫描 34 个 AI/LLM 博客，有新文章会出现在这里</span></div>';
+    } else {
+      document.getElementById('aiContent').innerHTML='<div class="blog-empty">🤖 暂无 AI 博客更新<br><span style="font-size:12px;color:var(--text3)">每天自动扫描 34 个 AI/LLM 博客，有新文章会出现在这里</span></div>';
+    }
+  }catch(e){document.getElementById('aiContent').innerHTML='<div class="blog-empty">🤖 暂无 AI 博客更新</div>'}
+}
+function renderAIDates(){document.getElementById('aiDates').innerHTML=aiDates.map((d,i)=>`<button class="date-btn ${i===aiIdx?'active':''}" onclick="selectAI(${i})">${d.slice(5)}</button>`).join('')}
+async function selectAI(i){
+  aiIdx=i;renderAIDates();const date=aiDates[i];
+  document.getElementById('aiContent').innerHTML=loading();
+  let data=aiCache[date];
+  if(!data){try{const r=await fetch(AI_BASE+date+'.json');if(r.ok){data=await r.json();aiCache[date]=data}}catch(_){}}
+  if(!data){document.getElementById('aiContent').innerHTML='<div class="status">加载失败</div>';return}
+  renderAI(data);
+}
+function renderAI(data){
+  if(!data.articles||!data.articles.length){
+    document.getElementById('aiContent').innerHTML='<div class="blog-empty">今日无新文章</div>';return;
+  }
+  // Group by category
+  const groups={};
+  data.articles.forEach(a=>{
+    const cat=CAT_MAP[a.source]||'news';
+    if(!groups[cat])groups[cat]=[];
+    groups[cat].push(a);
+  });
+
+  let h='';
+  const order=['lab','eng','newsletter','product','news'];
+  order.forEach(cat=>{
+    if(!groups[cat])return;
+    h+=`<div class="sec"><div class="sec-head"><span class="sec-icon">${(CAT_LABELS[cat]||'📄').split(' ')[0]}</span>${(CAT_LABELS[cat]||cat).replace(/^[^ ]+ /,'')}</div>`;
+    groups[cat].forEach(a=>{
+      const url=a.url?` href="${esc(a.url)}" target="_blank" rel="noopener"`:'';
+      h+=`<div class="blog-card"><a${url}><div class="blog-source">${esc(a.source)}</div><div class="blog-title">${esc(a.title)}</div>${a.summary?`<div style="font-size:13px;color:var(--text2);line-height:1.6">${esc(a.summary)}</div>`:''}</a></div>`;
+    });
+    h+=`</div>`;
+  });
+  document.getElementById('aiContent').innerHTML=h;
+}
+
 // ===== INIT =====
-initBrief();
-initDedao();
+initBrief();initDedao();initAI();
 </script>
 </body>
 </html>
