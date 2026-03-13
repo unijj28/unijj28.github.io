@@ -1,0 +1,59 @@
+{
+  "date": "2026-03-13",
+  "articles": [
+    {
+      "source": "Anthropic Research",
+      "title": "Constitutional AI: Scaling Oversight Beyond Human Feedback",
+      "url": "https://www.anthropic.com/research",
+      "summary": "探索如何用 AI 系统自身来监督和改进其他 AI 系统，减少对人类标注的依赖。新方法在安全性和有用性之间取得了更好的平衡。"
+    },
+    {
+      "source": "OpenAI Blog",
+      "title": "Codex CLI: Bringing AI Coding to Your Terminal",
+      "url": "https://openai.com/blog",
+      "summary": "开源命令行编程助手，支持本地文件操作和 shell 执行。配合 gpt-5.4 模型，让开发者在终端中获得 AI 编程辅助。"
+    },
+    {
+      "source": "Google DeepMind",
+      "title": "Gemini 2.5 Pro: Advancing Multimodal Reasoning",
+      "url": "https://deepmind.google/discover/blog/",
+      "summary": "新版本在视频理解和科学推理上大幅提升，200万 token 上下文窗口支持超长文档分析。"
+    },
+    {
+      "source": "Simon Willison",
+      "title": "Building Agents That Actually Work: Lessons from Six Months of Testing",
+      "url": "https://simonwillison.net/",
+      "summary": "Simon 分享了半年来测试各种 AI Agent 框架的实战经验，总结了什么有效、什么是噱头。核心观点：简单的 prompt chaining 往往比复杂框架更可靠。"
+    },
+    {
+      "source": "Latent Space",
+      "title": "The Post-Transformer Era: What Comes After Attention?",
+      "url": "https://www.latent.space/",
+      "summary": "深度分析 Mamba、RWKV 等非 Transformer 架构的最新进展，探讨注意力机制的替代方案是否真的能在规模化后胜出。"
+    },
+    {
+      "source": "LangChain",
+      "title": "LangGraph 2.0: Production-Ready Agent Orchestration",
+      "url": "https://blog.langchain.dev/",
+      "summary": "LangGraph 2.0 发布，新增持久化状态管理、人机协作中断点和流式输出，面向生产环境的 Agent 编排工具。"
+    },
+    {
+      "source": "Chip Huyen",
+      "title": "RAG is Dead, Long Live RAG: The Evolution of Retrieval-Augmented Generation",
+      "url": "https://huyenchip.com/blog/",
+      "summary": "随着上下文窗口越来越大，传统 RAG 是否还有必要？文章分析了长上下文 vs RAG 的取舍，提出了混合方案。"
+    },
+    {
+      "source": "Meta AI",
+      "title": "Llama 4 Scout & Maverick: Open-Weight Models at Scale",
+      "url": "https://ai.meta.com/blog/",
+      "summary": "Scout 17B 在小模型领域达到 GPT-4 级性能，Maverick 400B 多语言能力突出。开源社区迎来新一轮 fine-tuning 浪潮。"
+    },
+    {
+      "source": "Cursor",
+      "title": "How We Built Background Agents for Autonomous Coding",
+      "url": "https://cursor.com/blog",
+      "summary": "Cursor 团队分享后台 Agent 的技术架构——如何让 AI 在后台自主完成代码修改、测试和 PR 创建。"
+    }
+  ]
+}
