@@ -3,379 +3,162 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bokk Mo · 每日推送</title>
+<title>每日推送</title>
 <style>
   :root {
     --bg: #0f0f0f;
-    --bg2: #1a1a1a;
-    --card: #1e1e2a;
-    --card-hover: #262638;
+    --bg2: #1a1a2a;
+    --card: #1e1e30;
+    --card-hover: #282845;
     --text: #e8e8e8;
-    --text2: #999;
-    --text3: #555;
+    --text2: #aaa;
     --accent: #e8a849;
-    --accent2: #c8842a;
-    --border: #2a2a3a;
-    --green: #4ecf8e;
-    --red: #e85050;
-    --blue: #5ba0d0;
-    --radius: 12px;
+    --accent2: #ff6b6b;
+    --border: #2a2a40;
   }
   [data-theme="light"] {
     --bg: #f4f2ed;
-    --bg2: #ffffff;
-    --card: #ffffff;
-    --card-hover: #f8f6f0;
+    --bg2: #fff;
+    --card: #fff;
+    --card-hover: #faf8f2;
     --text: #1a1a1a;
     --text2: #666;
-    --text3: #aaa;
     --accent: #c07828;
-    --accent2: #a06018;
+    --accent2: #d04040;
     --border: #e0dcd2;
   }
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
   }
 
-  /* NAV */
-  nav {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 20px;
-    position: sticky; top: 0; z-index: 200;
-  }
-  .nav-inner {
-    max-width: 960px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-title { font-size: 20px; font-weight: 700; color: var(--accent); }
-  .nav-right { display: flex; align-items: center; gap: 6px; }
-  .tab-btn {
-    padding: 6px 16px; border-radius: 20px;
-    border: 1px solid var(--border); background: transparent;
-    color: var(--text2); font-size: 13px; cursor: pointer;
-    transition: all .15s; white-space: nowrap;
-  }
-  .tab-btn:hover { border-color: var(--accent); color: var(--text); }
-  .tab-btn.active { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
   .theme-btn {
-    width: 34px; height: 34px; border-radius: 50%;
+    position: fixed; top: 20px; right: 20px;
+    width: 42px; height: 42px; border-radius: 50%;
     border: 1px solid var(--border); background: var(--card);
-    color: var(--text2); font-size: 16px; cursor: pointer;
+    color: var(--text2); font-size: 20px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: all .15s; margin-left: 8px;
+    transition: all .2s; z-index: 10;
   }
-  .theme-btn:hover { border-color: var(--accent); color: var(--text); }
+  .theme-btn:hover { border-color: var(--accent); transform: scale(1.1); }
 
-  /* PANELS */
-  .panel { display: none; max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
-  .panel.active { display: block; }
-
-  /* ========== BRIEFING STYLES ========== */
-  .date-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
-  .date-btn {
-    padding: 5px 14px; border-radius: 20px;
-    border: 1px solid var(--border); background: var(--card);
-    color: var(--text2); font-size: 13px; cursor: pointer; transition: all .15s;
+  .hero { text-align: center; margin-bottom: 50px; }
+  .hero h1 {
+    font-size: 2.4em; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
   }
-  .date-btn:hover { border-color: var(--accent); color: var(--text); }
-  .date-btn.active { background: var(--accent); color: #111; border-color: var(--accent); font-weight: 600; }
+  .hero p { color: var(--text2); font-size: 1.05em; }
 
-  .section-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 22px 24px; margin-bottom: 16px;
-    transition: border-color .15s;
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 700px;
+    width: 100%;
   }
-  .section-card:hover { border-color: #555; }
-  [data-theme="light"] .section-card:hover { border-color: var(--accent); }
-  .section-head { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; margin-bottom: 14px; }
-  .section-icon { font-size: 20px; }
 
-  .news-ul { list-style: none; }
-  .news-ul li { padding: 9px 0 9px 16px; border-bottom: 1px solid rgba(128,128,128,.1); position: relative; font-size: 14px; }
-  .news-ul li:last-child { border-bottom: none; }
-  .news-ul li::before { content:''; position: absolute; left:0; top:17px; width:6px; height:6px; border-radius:50%; background: var(--accent); }
-
-  .ai-item { padding: 11px 0; border-bottom: 1px solid rgba(128,128,128,.1); }
-  .ai-item:last-child { border-bottom: none; }
-  .ai-title { font-weight: 600; font-size: 14px; }
-  .ai-comment { color: var(--text2); font-size: 13px; padding-left: 12px; border-left: 2px solid var(--accent); margin-top: 4px; }
-
-  .weather-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .weather-main { grid-column: 1/-1; font-size: 15px; }
-  .weather-stat { background: rgba(128,128,128,.06); padding: 12px; border-radius: 8px; text-align: center; }
-  .weather-stat .wl { color: var(--text2); font-size: 12px; margin-bottom: 2px; }
-  .weather-stat .wv { font-size: 1.2em; font-weight: 600; }
-  .weather-tip { grid-column: 1/-1; background: rgba(232,168,73,.1); padding: 10px 14px; border-radius: 8px; font-size: 13px; color: var(--accent); }
-
-  .market-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-  .market-item { background: rgba(128,128,128,.06); padding: 12px; border-radius: 8px; text-align: center; }
-  .market-name { color: var(--text2); font-size: 12px; margin-bottom: 4px; }
-  .market-val { font-size: 14px; font-weight: 600; }
-  .market-chg { font-size: 13px; font-weight: 600; margin-top: 2px; }
-  .market-chg.up { color: var(--green); }
-  .market-chg.down { color: var(--red); }
-
-  /* ========== DEDAO STYLES ========== */
-  .common-thread {
-    background: linear-gradient(135deg, rgba(232,168,73,.08), rgba(128,128,200,.06));
-    border: 1px solid var(--accent2); border-radius: var(--radius);
-    padding: 18px 22px; margin-bottom: 24px; font-size: 14px; line-height: 1.8;
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 30px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .25s;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
   }
-  .ct-label { font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: 2px; margin-bottom: 6px; }
-
-  .d-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; transition: border-color .15s;
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity .25s;
   }
-  .d-card:hover { border-color: #555; }
-  [data-theme="light"] .d-card:hover { border-color: var(--accent); }
-  .d-head {
-    padding: 18px 22px; cursor: pointer;
-    display: flex; gap: 14px; align-items: flex-start; user-select: none;
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.3);
   }
-  .d-head:hover { background: var(--card-hover); }
-  .d-num {
-    background: var(--accent); color: #111; font-size: 12px; font-weight: 700;
-    min-width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
-    border-radius: 6px; flex-shrink: 0; margin-top: 2px;
+  [data-theme="light"] .card:hover { box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+  .card:hover::before { opacity: 1; }
+
+  .card-icon { font-size: 2.8em; }
+  .card-title { font-size: 1.35em; font-weight: 700; }
+  .card-desc { color: var(--text2); font-size: 0.92em; line-height: 1.6; }
+  .card-arrow {
+    color: var(--accent); font-size: 0.9em; font-weight: 600;
+    margin-top: auto; padding-top: 8px;
+    opacity: 0; transition: opacity .2s;
   }
-  .d-meta { flex: 1; min-width: 0; }
-  .d-course { font-size: 12px; color: var(--accent); margin-bottom: 3px; }
-  .d-title { font-size: 16px; font-weight: 600; line-height: 1.5; }
-  .d-summary { font-size: 13px; color: var(--text2); margin-top: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .d-toggle { color: var(--text3); font-size: 18px; flex-shrink: 0; margin-top: 4px; transition: transform .2s; }
-  .d-card.open .d-toggle { transform: rotate(180deg); }
-  .d-card.open .d-summary { display: none; }
+  .card:hover .card-arrow { opacity: 1; }
 
-  .d-detail { display: none; padding: 0 22px 22px; border-top: 1px solid var(--border); }
-  .d-card.open .d-detail { display: block; }
+  .footer {
+    margin-top: 60px;
+    color: var(--text2);
+    font-size: 0.8em;
+    opacity: 0.6;
+  }
 
-  .d-section { margin-top: 18px; }
-  .d-section-title { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: 1px; margin-bottom: 8px; padding-bottom: 5px; border-bottom: 1px solid var(--border); }
-  .d-section p { font-size: 14px; line-height: 1.8; }
-  .d-section ul { list-style: none; }
-  .d-section ul li { position: relative; padding-left: 16px; margin-bottom: 6px; font-size: 14px; }
-  .d-section ul li::before { content:"›"; position: absolute; left:0; color: var(--accent); font-weight: 700; }
-
-  .a-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-  .a-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; }
-  .a-label { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
-  .a-label.g { color: var(--green); }
-  .a-label.r { color: var(--red); }
-  .a-label.b { color: var(--blue); }
-  .a-item p { font-size: 13px; color: var(--text2); line-height: 1.7; }
-
-  .cross-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 10px; }
-
-  .status { text-align: center; padding: 60px 20px; color: var(--text3); }
-
-  @media (min-width: 640px) { .a-grid { grid-template-columns: repeat(3,1fr); } }
   @media (max-width: 500px) {
-    .nav-title { font-size: 17px; }
-    .tab-btn { padding: 5px 12px; font-size: 12px; }
-    .section-card, .d-head, .d-detail { padding-left: 16px; padding-right: 16px; }
+    .hero h1 { font-size: 1.8em; }
+    .cards { grid-template-columns: 1fr; }
+    .card { padding: 28px 24px; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <div class="nav-title">📡 每日推送</div>
-    <div class="nav-right">
-      <button class="tab-btn active" onclick="switchTab('briefing')">📰 每日简报</button>
-      <button class="tab-btn" onclick="switchTab('dedao')">📚 得到日报</button>
-      <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
-    </div>
-  </div>
-</nav>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">🌙</button>
 
-<div class="panel active" id="panel-briefing">
-  <div class="date-row" id="briefDates"></div>
-  <div id="briefContent"><div class="status">加载中...</div></div>
+<div class="hero">
+  <h1>📡 每日推送</h1>
+  <p>新闻简报 · 得到文章深度分析 · 每日更新</p>
 </div>
 
-<div class="panel" id="panel-dedao">
-  <div class="date-row" id="dedaoDates"></div>
-  <div id="dedaoContent"><div class="status">加载中...</div></div>
+<div class="cards">
+  <a class="card" href="https://unijj28.github.io/daily-push/">
+    <div class="card-icon">📰</div>
+    <div class="card-title">每日简报</div>
+    <div class="card-desc">澳洲 · 国际 · 中国新闻<br>AI 技术动态 · 墨尔本天气 · 市场数据</div>
+    <div class="card-arrow">查看简报 →</div>
+  </a>
+  <a class="card" href="https://unijj28.github.io/dedao-daily/">
+    <div class="card-icon">📚</div>
+    <div class="card-title">得到日报</div>
+    <div class="card-desc">刘怡·国际参考 · 马江博·政经参考 · 得到头条<br>深度分析 · 批判性解读 · 启发联想</div>
+    <div class="card-arrow">查看分析 →</div>
+  </a>
 </div>
+
+<div class="footer">Powered by OpenClaw</div>
 
 <script>
-const BRIEF_BASE = 'https://unijj28.github.io/daily-push/';
-const DEDAO_BASE = 'https://unijj28.github.io/dedao-daily/';
-
-let briefData = [], dedaoData = [];
-let activeTab = 'briefing';
-
-// ===== THEME =====
-const themeBtn = document.getElementById('themeBtn');
+const btn = document.getElementById('themeBtn');
 function setTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
-  themeBtn.textContent = t === 'light' ? '🌙' : '☀️';
+  btn.textContent = t === 'light' ? '🌙' : '☀️';
   localStorage.setItem('push-theme', t);
 }
 function toggleTheme() {
   setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
 }
-const savedTheme = localStorage.getItem('push-theme');
-if (savedTheme) setTheme(savedTheme);
-
-// ===== TABS =====
-function switchTab(tab) {
-  activeTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.textContent.includes(tab === 'briefing' ? '简报' : '得到')));
-  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
-}
-
-// ===== HELPERS =====
-function esc(s) { const e = document.createElement('span'); e.textContent = s; return e.innerHTML; }
-
-// ===== BRIEFING =====
-async function loadBriefing() {
-  try {
-    const res = await fetch(BRIEF_BASE + 'data.json');
-    briefData = await res.json();
-    briefData.sort((a, b) => b.date.localeCompare(a.date));
-    renderBriefDates();
-    if (briefData.length) selectBrief(0);
-  } catch (e) {
-    document.getElementById('briefContent').innerHTML = '<div class="status">加载失败</div>';
-  }
-}
-
-let briefIdx = 0;
-function renderBriefDates() {
-  document.getElementById('briefDates').innerHTML = briefData.map((d, i) =>
-    `<button class="date-btn ${i===briefIdx?'active':''}" onclick="selectBrief(${i})">${d.date.slice(5)} ${d.weekday||''}</button>`
-  ).join('');
-}
-function selectBrief(i) {
-  briefIdx = i; renderBriefDates();
-  const d = briefData[i]; if (!d) return;
-  const b = d.briefing; let h = '';
-  const NAMES = {asx200:'ASX 200',sp500:'S&P 500',dow:'道琼斯',hsi:'恒生',sse:'上证',gold:'黄金',aud:'澳元',iron:'铁矿石',oil:'原油'};
-
-  if (b?.australia?.length) h += sec('🇦🇺','澳洲要闻', `<ul class="news-ul">${b.australia.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
-  if (b?.world?.length) h += sec('🌏','国际头条', `<ul class="news-ul">${b.world.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
-  if (b?.china?.length) h += sec('🇨🇳','中国新闻', `<ul class="news-ul">${b.china.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`);
-  if (b?.ai?.length) h += sec('🤖','AI 技术动态', b.ai.map(x => typeof x==='string' ? `<div class="ai-item"><div class="ai-title">${esc(x)}</div></div>` : `<div class="ai-item"><div class="ai-title">${esc(x.title)}</div><div class="ai-comment">${esc(x.comment)}</div></div>`).join(''));
-  if (b?.weather) {
-    const w = b.weather;
-    h += sec('🌤','墨尔本天气', `<div class="weather-grid">
-      <div class="weather-main">☁️ ${esc(w.condition)}</div>
-      <div class="weather-stat"><div class="wl">最低</div><div class="wv">${w.tempLow}°C</div></div>
-      <div class="weather-stat"><div class="wl">最高</div><div class="wv">${w.tempHigh}°C</div></div>
-      <div class="weather-stat"><div class="wl">湿度</div><div class="wv">${w.humidity}%</div></div>
-      <div class="weather-stat"><div class="wl">风</div><div class="wv" style="font-size:.85em">${esc(w.wind)}</div></div>
-      ${w.tip?`<div class="weather-tip">☂️ ${esc(w.tip)}</div>`:''}
-    </div>`);
-  }
-  if (b?.markets) {
-    h += sec('📈','市场动态', `<div class="market-grid">${Object.entries(b.markets).map(([k,v])=>{
-      const ch=v.change||''; const cls=ch.startsWith('+')?'up':ch.startsWith('-')?'down':'';
-      return `<div class="market-item"><div class="market-name">${NAMES[k]||k}</div><div class="market-val">${esc(v.value)}</div><div class="market-chg ${cls}">${esc(ch)}</div></div>`;
-    }).join('')}</div>`);
-  }
-  document.getElementById('briefContent').innerHTML = h;
-}
-function sec(icon, title, body) {
-  return `<div class="section-card"><div class="section-head"><span class="section-icon">${icon}</span>${title}</div>${body}</div>`;
-}
-
-// ===== DEDAO =====
-let dedaoDates = [], dedaoIdx = 0;
-async function loadDedao() {
-  try {
-    // Try index.json first
-    let dates = [];
-    try {
-      const ir = await fetch(DEDAO_BASE + 'posts/index.json');
-      if (ir.ok) dates = await ir.json();
-    } catch(_){}
-    if (!dates.length) {
-      // Probe recent 30 days
-      const today = new Date();
-      const ps = [];
-      for (let i=0;i<30;i++){const d=new Date(today);d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);ps.push(fetch(DEDAO_BASE+'posts/'+ds+'.json',{method:'HEAD'}).then(r=>r.ok?ds:null).catch(()=>null));}
-      dates = (await Promise.all(ps)).filter(Boolean).sort().reverse();
-    }
-    dedaoDates = dates;
-    renderDedaoDates();
-    if (dates.length) selectDedao(0);
-    else document.getElementById('dedaoContent').innerHTML = '<div class="status">暂无数据</div>';
-  } catch(e) {
-    document.getElementById('dedaoContent').innerHTML = '<div class="status">加载失败</div>';
-  }
-}
-
-function renderDedaoDates() {
-  document.getElementById('dedaoDates').innerHTML = dedaoDates.map((d,i)=>
-    `<button class="date-btn ${i===dedaoIdx?'active':''}" onclick="selectDedao(${i})">${d.slice(5)}</button>`
-  ).join('');
-}
-
-async function selectDedao(i) {
-  dedaoIdx = i; renderDedaoDates();
-  const d = dedaoDates[i];
-  document.getElementById('dedaoContent').innerHTML = '<div class="status">加载中...</div>';
-  try {
-    const res = await fetch(DEDAO_BASE + 'posts/' + d + '.json');
-    const data = await res.json();
-    renderDedao(data);
-  } catch(e) {
-    document.getElementById('dedaoContent').innerHTML = '<div class="status">加载失败</div>';
-  }
-}
-
-function renderDedao(data) {
-  let h = '';
-  if (data.common_thread) {
-    h += `<div class="common-thread"><div class="ct-label">今日共同线索</div><div>${esc(data.common_thread)}</div></div>`;
-  }
-  (data.articles||[]).forEach((a,i)=>{
-    h += `<div class="d-card"><div class="d-head" onclick="this.parentElement.classList.toggle('open')">
-      <div class="d-num">${esc(String(a.number||(i+1)))}</div>
-      <div class="d-meta">
-        <div class="d-course">${esc(a.course)}</div>
-        <div class="d-title">${esc(a.title)}</div>
-        <div class="d-summary">${esc(a.summary)}</div>
-      </div>
-      <div class="d-toggle">▾</div>
-    </div><div class="d-detail">${dedaoDetail(a)}</div></div>`;
-  });
-  document.getElementById('dedaoContent').innerHTML = h;
-}
-
-function dedaoDetail(a) {
-  let h = `<div class="d-section"><div class="d-section-title">核心摘要</div><p>${esc(a.summary)}</p></div>`;
-  if (a.views?.length) h += `<div class="d-section"><div class="d-section-title">核心观点</div><ul>${a.views.map(v=>`<li>${esc(v)}</li>`).join('')}</ul></div>`;
-  if (a.analysis) {
-    h += `<div class="d-section"><div class="d-section-title">批判性分析</div><div class="a-grid">`;
-    if (a.analysis.strengths) h += `<div class="a-item"><div class="a-label g">论据扎实</div><p>${esc(a.analysis.strengths)}</p></div>`;
-    if (a.analysis.weaknesses) h += `<div class="a-item"><div class="a-label r">逻辑漏洞</div><p>${esc(a.analysis.weaknesses)}</p></div>`;
-    if (a.analysis.bias) h += `<div class="a-item"><div class="a-label b">立场倾向</div><p>${esc(a.analysis.bias)}</p></div>`;
-    h += `</div></div>`;
-  }
-  if (a.inspiration) {
-    h += `<div class="d-section"><div class="d-section-title">启发与联想</div>`;
-    if (a.inspiration.crossover) h += `<div class="cross-box">${esc(a.inspiration.crossover)}</div>`;
-    if (a.inspiration.questions?.length) h += `<ul>${a.inspiration.questions.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`;
-    h += `</div>`;
-  }
-  return h;
-}
-
-// ===== INIT =====
-loadBriefing();
-loadDedao();
+const s = localStorage.getItem('push-theme');
+if (s) setTheme(s);
 </script>
 </body>
 </html>
